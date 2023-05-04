@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- HEAD Section-->
+
+<head>
+    <!-- META Section & SEO-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="description" content="La mejor manera de aprender es practicando">
+    <meta name="keywords" content="testing,coder,loops,firstDelivery">
+    <meta name="theme-color" content="#57a397">
+    <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- PWA Pending -->
+    <!-- LINK Section -->
+    <link rel="icon" type="image/png" href="../static/images/logo/favicon.png" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="../css/fontawesome/all.css" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+    <!-- TITLE Screen -->
+    <title>ΩVA</title>
+</head>
+
+<!-- BODY Section -->
+
+<body>
+    <!-- HEADER Section -->
+    <header>
+        <nav id="navMenu" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../index.html">
+                    <i id="idLogoIcon" class="fa-brands fa-js fa-2x mainIcon slideInDown"></i>
+                    JavaScript
+                </a>
+                <button class="navbar-toggler rounded-5" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse text-white" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link hover-underline-animation" aria-current="page"
+                                href="../index.html">Inicio
+                                <div class="line-1"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link hover-underline-animation" href="./figuras.html">Figuras
+                                <div class="line-1"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link hover-underline-animation" href="./tablas.html">Tablas
+                                <div class="line-1"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link hover-underline-animation active" href="./electricidad.html">Calcular Ley
+                                de Ohm
+                                <div class="line-1"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link hover-underline-animation" href="./calculadora.html">Calculadora
+                                <div class="line-1"></div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN Section -->
+    <main>
+        <!-- Main Header -->
+        <section class="heroTemplate">
+            <div class="row m-auto mainText">
+                <div class="col-sm text-center">
+                    <h1 class="card-title fs-1 fw-bold slideInDown">
+                        Ley de Ohm
+                    </h1>
+                    <div class="fs-3 slideInDown">
+                        Selecciona la variable para calcular
+
+                        <!-- VARIABLE Section -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <!-- VARIABLE Selector -->
+                                <div class="list-group" id="list-tab" role="tablist">
+                                    <a class="list-group-item list-group-item-action active" id="list-ohm-list"
+                                        data-bs-toggle="list" href="#list-ohm" role="tab"
+                                        aria-controls="list-ohm">Resistencia</a>
+                                    <a class="list-group-item list-group-item-action" id="list-volts-list"
+                                        data-bs-toggle="list" href="#list-volts" role="tab"
+                                        aria-controls="list-volts">Voltaje</a>
+                                    <a class="list-group-item list-group-item-action" id="llist-ampers-list"
+                                        data-bs-toggle="list" href="#llist-ampers" role="tab"
+                                        aria-controls="llist-ampers">Amperaje</a>
+                                </div>
+                            </div>
+
+                            <!-- Logic Implementation -->
+                            <div class="col-sm-8">
+                                <div class="tab-content" id="nav-tabContent">
+
+                                    <!-- OHM -->
+                                    <div class="tab-pane fade show active" id="list-ohm" role="tabpanel"
+                                        aria-labelledby="list-ohm-list">
+                                        <div class="tab-pane fade show active" id="list-ohm" role="tabpanel"
+                                            aria-labelledby="list-ohm-list">
+                                            <label>Tension (V)
+                                                <input id="idOhmFirst" type="number" class="form-control"
+                                                    placeholder="Volts" min="0" required></label>
+                                            <label>Corriente (A)
+                                                <input id="idOhmSecond" type="number" class="form-control"
+                                                    placeholder="Amperes" min="0" required></label>
+                                            <button id="idBtnOhm" value="ohm" type="button"
+                                                class="btn btn-primary" onclick="calcularOhm(this.value)">
+                                                Calcular
+                                            </button>
+                                            <!-- Response -->
+                                            <div>
+                                                <label>Resistencia (Ω):</label>
+                                                <p id="idOhmResult"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- VOLTS -->
+                                    <div class="tab-pane fade" id="list-volts" role="tabpanel"
+                                        aria-labelledby="list-volts-list">
+                                        <div class="tab-pane fade show active" id="list-ohm" role="tabpanel"
+                                            aria-labelledby="list-ohm-list">
+                                            <label>Amperes (A)
+                                                <input id="idVoltsFirst" type="number" class="form-control"
+                                                    placeholder="Amperes" min="0" required></label>
+                                            <label>Ohms (Ω)
+                                                <input id="idVoltsSecond" type="number" class="form-control"
+                                                    placeholder="Ohms" min="0" required></label>
+                                            <button id="idBtnVolts" value="volts" type="button"
+                                                class="btn btn-primary" onclick="calcularOhm(this.value)">
+                                                Calcular
+                                            </button>
+                                            <!-- Response -->
+                                            <div>
+                                                <label>Volts (V):</label>
+                                                <p id="idVoltsResult"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- AMPERES -->
+                                    <div class="tab-pane fade" id="llist-ampers" role="tabpanel"
+                                        aria-labelledby="llist-ampers-list">
+                                        <div class="tab-pane fade show active" id="list-ohm" role="tabpanel"
+                                            aria-labelledby="list-ohm-list">
+                                            <label>Volts (V)
+                                                <input id="idAmpsFirst" type="number" class="form-control"
+                                                    placeholder="Volts" min="0" required></label>
+                                            <label>Ohms (Ω)
+                                                <input id="idAmpsSecond" type="number" class="form-control"
+                                                    placeholder="Ohms" min="0" required></label>
+                                            <button id="idBtnAmperes" value="amperes" type="button"
+                                                class="btn btn-primary" onclick="calcularOhm(this.value)">
+                                                Calcular
+                                            </button>
+                                            <!-- Response -->
+                                            <div>
+                                                <label>Amperes (A):</label>
+                                                <p id="idAmperesResult"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER Section -->
+    <footer id="fooFooter" class="bg-dark text-center text-white" date-aos="fade-right">
+        <div style="padding-top: 36px; padding-bottom:1px;">
+            <!-- MEDIA Links -->
+            <div class="container">
+                <div class="social-links">
+                    <a class="m-1" href="https://www.linkedin.com/in/luis-eduardo-fernandez-rocha-09904120/"
+                        target="_blank" style="color:#529e91"><i class="fab fa-linkedin fa-2x"></i></a>
+                    <a class="m-1" href="https://www.researchgate.net/profile/Luis-Eduardo-Fernandez-Rocha"
+                        target="_blank" style="color: blueviolet;"><i class="fab fa-researchgate fa-2x"></i></a>
+                    <a class="m-1" href="https://raknarrok.blogspot.com" target="_blank" style="color: red;"><i
+                            class="fab fa-blogger fa-2x"></i></a>
+                </div>
+            </div>
+            <!-- SUB Menu -->
+            <span>
+                <a class="linkColor" href="../index.html">Inicio</a> |
+                <a class="linkColor" href="./figuras.html">Figuras</a> |
+                <a class="linkColor" href="./tablas.html">Tablas</a> |
+                <a class="linkColor" href="./figuras.html">Figuras</a> |
+                <a class="linkColor" href="./electricidad.html">Ley de Ohm</a> |
+                <a class="linkColor" href="./calculadora.html">Calculadora</a>
+            </span>
+            <p id="pFooterCopy" class="mpk_textColor">Copyright (c) 2023 MIPEKICHA. Calle Gladiola # 106, Fracc.
+                Jardines de Durango, Dgo, MX. CP.34200</p>
+            <p class="linkColor">
+                <a id="aFooterTerms" class="mbr-footer__link text-mipekicha" href="#">Terms of Use |
+                    Privacy Policy</a>
+            </p>
+            <p class="linkColor">
+                <a id="aFooterPawprint" class="mbr-footer_link text-mipekicha" href="#">Created By Mipekicha Digital
+                    <i class="fa-solid fa-paw"></i></a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS Section -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="../static/scripts/utility.js"></script>
+    <script src="../static/scripts/commons.js"></script>
+</body>
+
+</html>
