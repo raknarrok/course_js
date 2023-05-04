@@ -64,12 +64,12 @@ function calculateArea(shape) {
  * @name displayResult
  * @summary Method to retrieve if is a valid number.
  * @author Luis Fernandez
- * @param NA
+ * @param value
  */
 
-function displayResult(id, area) {
+function displayResult(id, value) {
     // SetUp HTML Result
-    document.getElementById(`${id}`).innerHTML = area.toFixed(2);
+    document.getElementById(`${id}`).innerHTML = value.toFixed(2);
 }
 
 /**
@@ -140,6 +140,42 @@ function calcularOhm(value) {
         case `ohm`:
             result = $(`#idOhmFirst`).val() / $(`#idOhmSecond`).val();
             displayResult(`idOhmResult`, result);
+            break;
+        default:
+            result = 0;
+            break;
+    }
+}
+
+/**
+ * @name regularOperations
+ * @summary Display the result value according to the option selected by the user.
+ * @description This method calculate the result according to the option selected by the user.
+ * @param value
+ */
+
+function regularOperations(value) {
+
+    // Variable Declaration & Definition
+    let result;
+
+    // Conditional Statement
+    switch (value) {
+        case `addition`:
+            result = Number($(`#idAdditionFirst`).val()) + Number($(`#idAdditionSecond`).val());
+            displayResult(`idAdditionResult`, result);
+            break;
+        case `subtraction`:
+            result = $(`#idSubtractionFirst`).val() - $(`#idSubtractionSecond`).val();
+            displayResult(`idSubtractionResult`, result);
+            break;
+        case `multiplication`:
+            result = $(`#idMultiplicationFirst`).val() * $(`#idMultiplicationSecond`).val();
+            displayResult(`idMultiplicationResult`, result);
+            break;
+        case `division`:
+            result = $(`#idDivisionFirst`).val() / $(`#idDivisionSecond`).val();
+            displayResult(`idDivisionResult`, result);
             break;
         default:
             result = 0;
