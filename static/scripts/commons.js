@@ -182,3 +182,224 @@ function regularOperations(value) {
             break;
     }
 }
+
+/**
+ * @name addObjectSections
+ * @summary The information will be added in the DOOM according the information added in the object 
+ */
+
+function addObjectSections() {
+
+    // Variable Declaration & Definition
+    let sections = [
+        {
+            id: "section1",
+            name: "Nuestros Collares",
+            description: "Collares de moda para todos los gustos"
+        },
+        {
+            id: "section2",
+            name: "Nuestros Anillos",
+            description: "Anillos de moda para todos los gustos"
+        },
+        {
+            id: "section3",
+            name: "Nuestros Aretes",
+            description: "Aretes de moda para todos los gustos"
+        }
+    ];
+
+    const buttonsBySections = {
+
+        // Setion 1 Collares
+        section1: [
+            {
+                id: "cItem1",
+                name: "Collar de perlas",
+                description: "Collar de perlas de agua dulce",
+                price: 100
+            },
+            {
+                id: "cItem2",
+                name: "Collar de oro",
+                description: "Collar de oro de 14k",
+                price: 200
+            },
+            {
+                id: "cItem3",
+                name: "Collar de plata",
+                description: "Collar de plata de 925",
+                price: 300
+            }
+        ],
+        // Section 2 Anillos
+        section2: [
+            {
+                id: "aItem1",
+                name: "Anillo de perlas",
+                description: "Anillo de perlas de agua dulce",
+                price: 100
+            },
+            {
+                id: "aItem2",
+                name: "Anillo de oro",
+                description: "Anillo de oro de 14k",
+                price: 200
+            },
+            {
+                id: "aItem3",
+                name: "Anillo de plata",
+                description: "Anillo de plata de 925",
+                price: 300
+            }
+        ],
+        // Section 3 Aretes
+        section3: [
+            {
+                id: "arItem1",
+                name: "Aretes de perlas",
+                description: "Aretes de perlas de agua dulce",
+                price: 100
+            },
+            {
+                id: "arItem2",
+                name: "Aretes de oro",
+                description: "Aretes de oro de 14k",
+                price: 200
+            },
+            {
+                id: "arItem3",
+                name: "Aretes de plata",
+                description: "Aretes de plata de 925",
+                price: 300
+            }
+        ]
+    };
+
+    // Clear HTML Before of load the information
+    if (document.getElementById("idAddSectionObjects").hasChildNodes()) {
+        $(`#idAddSectionObjects`).html(``);
+    }
+
+    const addHeadersObject = document.getElementById("idAddSectionObjects");
+
+    // Create Child Element
+    for (const section of sections) {
+
+        // Assign Element Type
+        const tagMainDiv = document.createElement("div"); // Div Created
+
+        // Add Attributes & Values
+        tagMainDiv.setAttribute("id", section.id);
+        tagMainDiv.setAttribute("class", "col-sm");
+
+        // Assign Each Section to the Header Object
+        addHeadersObject.appendChild(tagMainDiv); // New Div Added without Elements
+
+        // Create Child Element Card Title
+        const tagHeaderCard = document.createElement("h2"); // H2 Created
+
+        // Add Attributes & Values
+        tagHeaderCard.setAttribute("id", `h${section.id}`);
+        tagHeaderCard.setAttribute("class", "card-title fs-4");
+
+        // Create a new text node for the h2 element
+        const tagHeaderContent = document.createTextNode(section.name); // H2 Text Created
+
+        // Create Child Dependency
+        tagHeaderCard.appendChild(tagHeaderContent); // Add Text Node as property of H2
+
+        //Assign Each Header to the MainDiv Object
+        tagMainDiv.appendChild(tagHeaderCard); // New H2 Added Elements & Displayed
+
+        addDescription(section);
+
+        // Buttons Assigment
+        const buttonsCount = Object.keys(buttonsBySections).length;
+
+        // Review if the Section has Buttons
+        const reviewButtons = buttonsBySections[`${section.id}`].length;
+        console.log(`Current Buttons ${section.id} is ${reviewButtons}`);
+
+        // For Section to Iterate the buttons
+        for (const button of buttonsBySections[`${section.id}`]) {
+
+            // Assign Element Type
+            const tagButton = document.createElement("button"); // Button Created
+
+            // Add Attributes & Values
+            tagButton.setAttribute("id", `btn${button.id}`);
+            tagButton.setAttribute("class", "btn btn-outline-primary");
+            tagButton.setAttribute("type", "button");
+
+            // Create a new text node for the Button element
+            const tagButtonText = document.createTextNode(button.name); // Button Text Created
+            tagButton.appendChild(tagButtonText); // Add Text Node as property of Button
+
+            // Assign Each Button to the MainDiv Object
+            tagMainDiv.appendChild(tagButton); // New Button Added without Elements
+        };
+    };
+}
+
+/**
+ * Show Elements with methods
+ */
+const addDescription = (section) => {
+    $(`#${section.id}`).append(`<p class="fs-5">${section.description}</p>`);
+};
+
+function removeSection() {
+    $(`#idAddSectionObjects`).html(``);
+}
+
+/** 
+ * @name showHideSection
+ * @summary Display or Hide the Section according to the button text.
+ * @description This method display or hide the section according to the button text.
+ * @param NA
+*/
+function showHideSection() {
+
+    // Display or Hide the Section
+    document.getElementById('idSectionShowHide').style.getPropertyValue('display') === 'none' ? document.getElementById('idSectionShowHide').style.display = 'block' : document.getElementById('idSectionShowHide').style.display = 'none';
+
+    // Update the button text
+    document.getElementById('idBtnShowHide').innerText === 'Mostrar' ? document.getElementById('idBtnShowHide').innerText = 'Ocultar' : document.getElementById('idBtnShowHide').innerText = 'Mostrar';
+}
+
+/**
+ * @name filterInformation
+ * @summary Method to filter the information according to the user selection.
+ */
+
+function filterInformation(filterValue) {
+
+    // Retrieve all li elements
+    const arrLiElements = document.querySelectorAll(`#idProductList li`);
+
+    // Conditional Statement
+    for (let i = 0; i < arrLiElements.length; i++) {
+
+        // To lower case
+        filterValue = filterValue.toLowerCase();
+        let elementLower = arrLiElements[i].innerText.toLowerCase();
+
+        if (elementLower.includes(filterValue)) {
+            showElements(arrLiElements[i]);
+        } else {
+            hideElements(arrLiElements[i]);
+        }
+    }
+
+}
+
+// Hide the elements with out the filter value
+const hideElements = (element) => {
+    element.style.display = 'none';
+}
+
+// Show the elements with out the filter value
+const showElements = (element) => {
+    element.style.display = 'block';
+}
