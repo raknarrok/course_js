@@ -24,7 +24,7 @@
     <link href="../css/fontawesome/all.css" rel="stylesheet" />
     <link href="../css/style.css" rel="stylesheet" />
     <!-- TITLE Screen -->
-    <title>Figuras</title>
+    <title>Manejo de Storage</title>
 </head>
 
 <!-- BODY Section -->
@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-underline-animation active" href="./figuras.html">Figuras
+                            <a class="nav-link hover-underline-animation" href="./figuras.html">Figuras
                                 <div class="line-1"></div>
                             </a>
                         </li>
@@ -79,7 +79,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link hover-underline-animation" href="./memoria.html">
+                            <a class="nav-link hover-underline-animation active" href="./memoria.html">
                                 Manejo de Memoria
                                 <div class="line-1"></div>
                             </a>
@@ -103,112 +103,70 @@
             <div class="row m-auto mainText">
                 <div class="col-sm text-center">
                     <h1 class="card-title fs-1 fw-bold slideInDown">
-                        Calculadora de Figuras
+                        Manejo de Memoria
                     </h1>
                     <div class="fs-3 slideInDown">
-                        Selecciona la figura a calcular el Area
+                        Nosotros podemos almacenar informacion en nuestro explorador con localStore y sessionStorage.
+                        Preciona F12, busca la seccion de "Storage"/"Almacenamiento", despues en la seccion de "Almacenamiento local" 
 
-                        <!-- SHAPE Section -->
+                        <!-- VARIABLE Section -->
                         <div class="row">
                             <div class="col-sm-4">
-                                <!-- SHAPE Selector -->
+                                <!-- VARIABLE Selector -->
                                 <div class="list-group" id="list-tab" role="tablist">
-                                    <a class="list-group-item list-group-item-action active" id="list-circle-list"
-                                        data-bs-toggle="list" href="#list-circle" role="tab"
-                                        aria-controls="list-circle">Circulo</a>
-                                    <a class="list-group-item list-group-item-action" id="list-square-list"
-                                        data-bs-toggle="list" href="#list-square" role="tab"
-                                        aria-controls="list-square">Cuadrado</a>
-                                    <a class="list-group-item list-group-item-action" id="list-rectangle-list"
-                                        data-bs-toggle="list" href="#list-rectangle" role="tab"
-                                        aria-controls="list-rectangle">Rectangulo</a>
-                                    <a class="list-group-item list-group-item-action" id="list-triangle-list"
-                                        data-bs-toggle="list" href="#list-triangle" role="tab"
-                                        aria-controls="list-triangle">Triangulo</a>
+                                    <a class="list-group-item list-group-item-action active" id="list-addition-list"
+                                        data-bs-toggle="list" href="#list-addition" role="tab"
+                                        aria-controls="list-addition">Manejo de localStorage</a>
+                                    <a class="list-group-item list-group-item-action" id="list-substraction-list"
+                                        data-bs-toggle="list" href="#list-substraction" role="tab"
+                                        aria-controls="list-substraction">Manejo de sessionStorage</a>
                                 </div>
                             </div>
 
                             <!-- Logic Implementation -->
-                            <div class="col-sm-8">
+                            <div class="col-sm">
                                 <div class="tab-content" id="nav-tabContent">
 
-                                    <!-- CIRCLE Shape -->
-                                    <div class="tab-pane fade show active" id="list-circle" role="tabpanel"
-                                        aria-labelledby="list-circle-list">
-                                        <label>Radio (mt)
-                                            <input id="idRadio" type="number" class="form-control" placeholder="Radio"
-                                                min="0" required></label>
-                                        <button id="idBtnCircle" type="button" value="circle" class="btn btn-primary"
-                                            onclick="calculateArea(this.value)">
-                                            Calcular
-                                        </button>
-                                        <!-- Response -->
-                                        <div>
-                                            <label>Resultado:</label>
-                                            <p id="idCircleArea"></p>
-                                        </div>
-                                    </div>
-
-                                    <!-- SQUARE Shape -->
-                                    <div class="tab-pane fade" id="list-square" role="tabpanel"
-                                        aria-labelledby="list-square-list">
-                                        <div class="tab-pane fade show active" id="list-circle" role="tabpanel"
-                                            aria-labelledby="list-circle-list">
-                                            <label>Lado (mt)
-                                                <input id="idSquareSideA" type="number" class="form-control"
-                                                    placeholder="Lado" min="0" required></label>
-                                            <button id="idBtnSquare" type="submit" value="square"
-                                                class="btn btn-primary" onclick="calculateArea(this.value)">
-                                                Calcular
+                                    <!-- Local Storage Section -->
+                                    <div class="tab-pane fade show active" id="list-addition" role="tabpanel"
+                                        aria-labelledby="list-addition-list">
+                                        <div class="tab-pane fade show active" id="list-addition" role="tabpanel"
+                                            aria-labelledby="list-addition-list">
+                                            Usando el localStorage nuestra informacion se almacena en el explorador. Incluso cuando lo cierras y vuelves al sitio se mantiene.
+                                            <br>
+                                            <input id="idUsuarioLocal" type="text" placeholder="Agrega Tu Usuario">
+                                            <button id="idSaveUserLocal" class="btn btn-primary">
+                                                Guardar
+                                            </button>
+                                            <button id="idDeleteUserLocal" class="btn btn-secondary">
+                                                Eliminar Memoria
                                             </button>
                                             <!-- Response -->
                                             <div>
                                                 <label>Resultado:</label>
-                                                <p id="idSquareArea"></p>
+                                                <div id="idDisplayLocal"></div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- RECTANGLE Shape -->
-                                    <div class="tab-pane fade" id="list-rectangle" role="tabpanel"
-                                        aria-labelledby="list-rectangle-list">
-                                        <div class="tab-pane fade show active" id="list-circle" role="tabpanel"
-                                            aria-labelledby="list-circle-list">
-                                            <label>Lado (mt)
-                                                <input id="idRectangleHeight" type="number" class="form-control"
-                                                    placeholder="Lado" min="0" required></label>
-                                            <label>Altura (mt)
-                                                <input id="idRectangleWidth" type="number" class="form-control"
-                                                    placeholder="Altura" min="0" required></label>
-                                            <button id="idBtnRectangle" value="rectangle" type="button"
-                                                class="btn btn-primary" onclick="calculateArea(this.value)">
-                                                Calcular
+                                    <!-- Session Storage Section -->
+                                    <div class="tab-pane fade" id="list-substraction" role="tabpanel"
+                                        aria-labelledby="list-substraction-list">
+                                        <div class="tab-pane fade show active" id="list-addition" role="tabpanel"
+                                            aria-labelledby="list-addition-list">
+                                            Usando el sessionStorage nuestra informacion se almacena en el explorador, sin embargo si se cierra el explorador esta informacion se pierde.
+                                            <br>
+                                            <input id="idUsuarioSession" type="text" placeholder="Agrega Tu Usuario">
+                                            <button id="idSaveUserSession" class="btn btn-primary">
+                                                Guardar
+                                            </button>
+                                            <button id="idDeleteUserSession" class="btn btn-secondary">
+                                                Eliminar Memoria
                                             </button>
                                             <!-- Response -->
                                             <div>
                                                 <label>Resultado:</label>
-                                                <p id="idRectangleArea"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- TRIANGLE Shape -->
-                                    <div class="tab-pane fade" id="list-triangle" role="tabpanel"
-                                        aria-labelledby="list-triangle-list">
-                                        <div class="tab-pane fade show active" id="list-circle" role="tabpanel"
-                                            aria-labelledby="list-circle-list">
-                                            <label>Base (mt) <input id="idTriangleBase" type="number"
-                                                    class="form-control" placeholder="Base" min="0" required></label>
-                                            <label>Altura (mt) <input id="idTriangleHeight" type="number"
-                                                    class="form-control" placeholder="Altura" min="0" required></label>
-                                            <button id="idBtnTriangle" value="triangle" type="submit"
-                                                class="btn btn-primary" onclick="calculateArea(this.value)">
-                                                Calcular
-                                            </button>
-                                            <!-- Response -->
-                                            <div>
-                                                <label>Resultado:</label>
-                                                <p id="idTriangleArea"></p>
+                                                <div id="idDisplaySession"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -271,6 +229,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="../static/scripts/utility.js"></script>
     <script src="../static/scripts/commons.js"></script>
+    <script src="../static/scripts/products.js"></script>
+    <script defer src="../static/scripts/stock.js"></script>
 </body>
 
 </html>
