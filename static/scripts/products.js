@@ -133,15 +133,15 @@ stockProducts.forEach((product) => {
   // Destructuring
   const { id, name, quantity, desc, price, img, category } = product
   contaier.innerHTML += `
-    <div class="card" style="width: 18rem;">
+    <div name="${name}" class="card" style="width: 18rem;">
     <img src="${img}" class="card-img-top mt-2" alt="${name}">
     <div class="card-body">
         <h5 class="card-title">${name}</h5>
-        <p class="card-text">Percio: $${price}</p>
-        <p class="card-text">Cantidad: ${quantity || '<span>Agotados</span>' }</p>
+        <p class="card-text">Precio: $${price}</p>
+        <p class="card-text">Cantidad: ${quantity || '<span>Agotados</span>'}</p>
         <p class="card-text">${desc}</p>
         <p class="card-text">Categoria: ${category}</p>
-        <button onclick="addProduct(${id})" class="btn btn-primary ${quantity || "disabled"}">
+        <button onclick="addProduct(${id})" class="btn btn-primary ${quantity || 'disabled'}">
             Agregar
         </button>
     </div>
@@ -253,4 +253,46 @@ const btnClean = document.querySelector('#btnClean')
 btnClean.onclick = () => {
   shoppingCart = []
   showShoppingCart()
+}
+
+/**
+ * Clear the search field.
+ * Restore the filtering of the products.
+ */
+const btnClearFilter = document.querySelector('#btnClearFilter')
+btnClearFilter.onclick = () => {
+  const cards = document.querySelectorAll('#products_container .card')
+
+  for (const items in cards) {
+    showElements(cards[items])
+  }
+}
+
+/*
+* Hidde Elements not matching with the search
+*/
+const btnSearch = document.querySelector('#btnSearch')
+btnSearch.onclick = () => {
+  let textSearch = document.querySelector('#searchText').value
+  const cards = document.querySelectorAll('#products_container .card')
+  textSearch = textSearch.toLowerCase()
+
+  for (const items in cards) {
+    const currentText = cards[items].getAttribute('name')
+    if (currentText.toLowerCase().includes(textSearch)) {
+      showElements(cards[items])
+    } else {
+      hideElements(cards[items])
+    }
+  }
+}
+
+// Hide the elements with out the filter value
+const hideElements = (element) => {
+  element.style.display = 'none'
+}
+
+// Show the elements with out the filter value
+const showElements = (element) => {
+  element.style.display = 'block'
 }
