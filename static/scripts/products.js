@@ -117,6 +117,7 @@ let shoppingCart = []
 const contaier = document.querySelector('#products_container')
 const numberProducts = document.querySelector('#numberProducts')
 const totalAmount = document.querySelector('#totalAmount')
+const btnBuy = document.querySelector('#btnBuy')
 
 /**
  * Load the products from the database to the shopping cart.
@@ -222,19 +223,43 @@ const showShoppingCart = () => {
  */
 const deleteProduct = (id) => {
   // Find the index of the product in the shopping cart array
-  const index = shoppingCart.findIndex((product) => product.id === id)
+  const isOnCart = shoppingCart.findIndex((product) => product.id === id)
+
+  if (shoppingCart[isOnCart].quantity > 1) {
+    const product = shoppingCart.map((product) => {
+      if (product.id === id) {
+        product.quantity--
+      }
+    })
+  } else {
+    // Remove the product from the shopping cart by splicing the array
+    shoppingCart.splice(isOnCart, 1)
+  }
 
   // If the product is not found, return false
-  if (index === -1) return false
-
-  // Remove the product from the shopping cart by splicing the array
-  shoppingCart.splice(index, 1)
+  if (isOnCart === -1) return false
 
   // Update the display of the shopping cart
   showShoppingCart()
 
   // Return true to indicate the product was successfully deleted
   return true
+}
+
+/**
+ * Continue With the buy and checkout
+ */
+btnBuy.onclick = () => {
+  if (shoppingCart.length === 0) {
+    Swal.fire({
+      title: 'No tienes productos',
+      text: 'Agrega productos al carrito para continuar',
+      icon: 'warning',
+      confirmButtonText: 'Aceptar'
+    })
+  } else {
+    location.href = '/checkout.html'
+  }
 }
 
 /**
@@ -251,6 +276,15 @@ const saveProducts = () => {
  */
 const btnClean = document.querySelector('#btnClean')
 btnClean.onclick = () => {
+  const isOriginalValue = shoppingCart.findIndex((product) => product.quantity >= 1)
+  if (shoppingCart[isOriginalValue].quantity > 1) {
+    const product = shoppingCart.map((product) => {
+      if (product.quantity > 1) {
+        product.quantity = 1
+      }
+    })
+  }
+
   shoppingCart = []
   showShoppingCart()
 }
