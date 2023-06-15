@@ -171,6 +171,8 @@ const addProduct = (id) => {
 
     // If item is already on the shopping cart, increase quantity
     shoppingCart.push(item)
+    btnBuy.disabled = false
+    btnClean.disabled = false
   }
 
   // Update the display of the shopping cart
@@ -236,6 +238,10 @@ const deleteProduct = (id) => {
     shoppingCart.splice(isOnCart, 1)
   }
 
+  // Disable the buy/clear button if the shopping cart is empty
+  shoppingCart.length === 0 ? btnBuy.disabled = true : btnBuy.disabled = false
+  shoppingCart.length === 0 ? btnClean.disabled = true : btnClean.disabled = false
+
   // If the product is not found, return false
   if (isOnCart === -1) return false
 
@@ -285,6 +291,8 @@ btnClean.onclick = () => {
     })
   }
 
+  btnBuy.disabled = true
+  btnClean.disabled = true
   shoppingCart = []
   showShoppingCart()
 }
