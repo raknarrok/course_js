@@ -277,7 +277,7 @@ const saveProducts = () => {
 const btnClean = document.querySelector('#btnClean')
 btnClean.onclick = () => {
   const isOriginalValue = shoppingCart.findIndex((product) => product.quantity >= 1)
-  if (shoppingCart[isOriginalValue].quantity > 1) {
+  if (shoppingCart[isOriginalValue].quantity >= 1) {
     const product = shoppingCart.map((product) => {
       if (product.quantity > 1) {
         product.quantity = 1
