@@ -25,7 +25,7 @@
     <link href="../css/fontawesome/all.css" rel="stylesheet" />
     <link href="../css/style.css" rel="stylesheet" />
     <!-- TITLE Screen -->
-    <title>Tablas</title>
+    <title>checkout</title>
 </head>
 
 <!-- BODY Section -->
@@ -98,7 +98,7 @@
         <!-- Shopping Section -->
         <section class="text-bg-secondary headerSection">
             <div class="headerTitle">
-                Confirmar Compra
+                Confirmacion de Compra
             </div>
         </section>
     </header>
@@ -107,48 +107,307 @@
     <main>
         <!-- Main Header -->
         <section class="heroTemplateProducts">
-            <div class="row m-auto text-white">
-                <!-- Payment Method -->
-                <h2 class="text-center">Metodo de Pago</h2>
-                    <!-- Tarjeta de credito || Cash -->
+            <div class="accordion accordion-flush accordionConfiguration" id="accordionFlushExample">
                 <!-- Billing Address -->
-                <h2 class="text-center">Direccion de Facturacion</h2>
-                    <!-- Address Location details -->
-                <!-- Shipping Address -->
-                <h2 class="text-center">Direccion de Envio</h2>
-                    <!-- Check box in case to be the same of Shipping Address-->
-                    <!-- Address Location details -->
-                <!-- Shipping Method -->
-                <h2 class="text-center">Metodo de Entrega</h2>
-                    <!-- Retire on Local -->
-                    <!-- Fast Delivery -->
-                    <!-- Normal Delivery -->
-                    <!-- Urgent Delivery -->
-                <!-- Payment Information -->
-                <h2 class="text-center">Informacion de Pago</h2>
-                    <!-- Credit Card -->
-                    <!-- Cash -->
-                <!-- Order Summary -->
-                <h2 class="text-center">Resumen de Orden</h2>
-                <div class="col-sm text-center text-dark">
-                    <div id="products_container" class="row mt-5 d-flex justify-content-center">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <h4>Direccion de Facturacion</h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p>No incluir direccion de facturacion
+                                <input type="checkbox" id="chkBilling" name="billingCheck">
+                            <p id="noBillingMessage"></p>
+                            </p>
+                            <form class="row g-3 formConfiguration" id="formElement">
+                                <div class="col-md-6">
+                                    <label for="inputEmail4" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail4" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputAddress" class="form-label">Direccion</label>
+                                    <input type="text" class="form-control" id="inputAddress"
+                                        placeholder="1234 Main St">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputAddress2" class="form-label">Agregar Referencias</label>
+                                    <input type="text" class="form-control" id="inputAddressReference"
+                                        placeholder="Entre Calles y referencia de la casa">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputCity" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="inputCity">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputState" class="form-label">Estado</label>
+                                    <select id="selectStateBilling" class="form-select">
+                                        <option selected>Selecciona tu estado</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="inputZip" class="form-label">Codigo Postal</label>
+                                    <input type="text" class="form-control" id="inputZip">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                    <!-- Products details per quantity item price and total to all the items -->
-                    <!-- As well we will also have button to remove the entery product -->
-                    <!-- As well we will also have button to remove the entery product -->
-                    <!-- In the next secion we must have 
-                        Subtotal
-                        Discount
-                        Shipping
-                        Sales Taxes
-                        Total                    
-                    -->
-                <!-- Continue buton to complete the delivery-->
-                <div class="col-sm text-center">
-                    <button id="btnContinue" class="btn btn-primary btn-lg">Continuar</button>
+                <!-- Shipping Address -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseThree" aria-expanded="false"
+                            aria-controls="flush-collapseThree">
+                            <h4>Direccion de Envio</h4>
+                            <!-- Check box in case to be the same of Shipping Address-->
+                            <!-- Address Location details -->
+
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <p id="elementShipping" style="display: block;">Usar mi direccion de facturacion
+                                <input type="checkbox" id="chkShipping" name="shippingCheck">
+                            <p id="chkShipping"></p>
+                            </p>
+                            <form class="row g-3 formConfiguration" id="formElement">
+                                <div class="col-md-6">
+                                    <label for="inputEmail4" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="inputEmail4" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputAddress" class="form-label">Direccion</label>
+                                    <input type="text" class="form-control" id="inputAddress"
+                                        placeholder="1234 Main St">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputAddress2" class="form-label">Agregar Referencias</label>
+                                    <input type="text" class="form-control" id="inputAddressReference"
+                                        placeholder="Entre Calles y referencia de la casa">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputCity" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="inputCity">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputState" class="form-label">Estado</label>
+                                    <select id="selectStateShipping" class="form-select">
+                                        <option selected>Selecciona tu estado</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="inputZip" class="form-label">Codigo Postal</label>
+                                    <input type="text" class="form-control" id="inputZip">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <!-- Shipping Method -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseFour" aria-expanded="false"
+                            aria-controls="flush-collapseFour">
+                            <h4>Metodo de Entrega</h4>
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div>
+                                <input type="radio" id="radioRetireOnLocal" name="radioShipping" value="RetireOnLocal">
+                                <label for="radioRetireOnLocal">Retirar en Local</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="radioFastDelivery" name="radioShipping" value="FastDelivery">
+                                <label for="radioFastDelivery">Entrega Rapida</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="radioNormalDelivery" name="radioShipping"
+                                    value="NormalDelivery">
+                                <label for="radioNormalDelivery">Entrega Normal</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="radioUrgentDelivery" name="radioShipping"
+                                    value="UrgentDelivery">
+                                <label for="radioUrgentDelivery">Entrega Urgente</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Payment Information -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseFive" aria-expanded="false"
+                            aria-controls="flush-collapseFive">
+                            <h4>Informacion de Pago</h4>
+                            <!-- Credit Card -->
+                            <!-- Cash -->
+                            <!-- Bank Transfer -->
+                        </button>
+                    </h2>
+                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                                aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p>Selecciona un metodo de pago</p>
+                                    <div class="card border mt-2">
+                                        <h5 class="card-title">
+                                            <input type="radio" id="radioCash" name="radioPayment" value="RetireOnLocal"
+                                                checked>
+                                            <label for="radioCash">Efectivo</label>
+                                        </h5>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Si tu pago es en efectivo puedes pasar a cualquier sucursal de OXXO y
+                                                realizar
+                                                el pago
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card border">
+                                        <h5 class="card-title">
+                                            <input type="radio" id="radioCard" name="radioPayment"
+                                                value="RetireOnLocal">
+                                            <label for="radioCard">Tarjeta</label>
+                                        </h5>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                En la seccion "informacion de pago" agrega tu tarjeta de credito o
+                                                debito.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card border">
+                                        <h5 class="card-title">
+                                            <input type="radio" id="radioTransfer" name="radioPayment"
+                                                value="RetireOnLocal">
+                                            <label for="radioTransfer">Transferencia</label>
+                                        </h5>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Puedes realizar la transferencia a cuenta de banco desde tu banco o
+                                                aplicacion.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <p>Actualiza tu metodo de pago en caso de que no sea el correcto</p>
+                                    <div class="card border mt-2" id="infoCash" style="display: block;">
+                                        <h5 class="card-title">Efectivo</h5>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Si tu pago es en efectivo puedes pasar a cualquier sucursal de OXXO y
+                                                realizar
+                                                el pago.
+                                            </p>
+                                            <ul>
+                                                <li>Banco: BBVA Bancomer</li>
+                                                <li>Cuenta: 123456789</li>
+                                                <li>Beneficiarion: Cosmo Fulanito</li>
+                                            </ul>
+                                            <p>
+                                                <b>Importante</b> Toma foto a tu ticket y mandalo al correo electronico:
+                                                curso_ventas@mailinator.com
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card border" id="infoTransfer" style="display: none;">
+                                        <h5 class="card-title">Transferencia</h5>
+                                        <div class="card-body">
+                                            <p class="card-text">
+                                                Desde tu banco o aplicacion realiza la transferencia a la cuenta
+                                                siguiente.
+                                            </p>
+                                            <ul>
+                                                <li>Banco: BBVA Bancomer</li>
+                                                <li>Cuenta: 123456789</li>
+                                                <li>Beneficiarion: Cosmo Fulanito</li>
+                                            </ul>
+                                            <p>
+                                                <b>Importante</b> Toma foto a tu ticket y mandalo al correo electronico:
+                                                curso_ventas@mailinator.com
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="card border" id="infoCard" style="display: none;">
+                                        <h5 class="card-title">Tarjeta</h5>
+                                        <div class="card-body">
+                                            <div class="cart-text container">
+                                                <h2>Agrega los datos de tu tarjeta</h2>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <label for="name">Titular:</label>
+                                                        <input type="text" id="name" name="name" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="email">Correo electrónico:</label>
+                                                        <input type="email" id="email" name="email" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="card">Número de tarjeta:</label>
+                                                        <input type="text" id="card" name="card" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="expiry">Fecha de vencimiento:</label>
+                                                        <input type="text" id="expiry" name="expiry" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="cvv">CVV:</label>
+                                                        <input type="text" id="cvv" name="cvv" required>
+                                                    </div>
+                                                    <!-- <button type="submit">Realizar pago</button> -->
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Order Summary -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingSix">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseSix" aria-expanded="false"
+                                aria-controls="flush-collapseSix">
+                                <h4 class="text-center">Resumen de Orden</h4>
+                            </button>
+                        </h2>
+                        <div id="flush-collapseSix" class="accordion-collapse collapse"
+                            aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                This section is still under construction 
+                            </div>
+                            <div class="col-sm text-center text-dark">
+                                <div id="products_container" class="row mt-5 d-flex justify-content-center">
+                                </div>
+                            <!-- As well we will also have button to remove the entery product -->
+                                <div class="card-footer mb-2 border">
+                                    <p><b>Detalles de costo</b></p>
+                                    <p>Total de Productos: <span id="spnTotalProducts"></span></p>
+                                    <p>Subtotal: <span id="spnSubtotal"></span></p>
+                                    <p>Costo Envio: $0.00</p>
+                                    <p>IVA: <span id="spnIva"></span></p>
+                                    <p>Total: <span id="spnTotal"></span></p>
+                                </div>
+                            </div>
+                            <!-- Continue buton to complete the delivery-->
+                            <div class="col-sm text-center">
+                                <button id="btnContinue" class="btn btn-primary btn-lg mb-3" disabled>Confirmar Compra</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </section>
     </main>
 
