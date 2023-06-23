@@ -207,11 +207,11 @@ btnSearch.onclick = () => {
   textSearch = textSearch.toLowerCase()
 
   for (const card of cards) { // Usar bucle for...of para iterar sobre el array
-    const currentText = card.getAttribute('name');
+    const currentText = card.getAttribute('name')
     if (currentText.toLowerCase().includes(textSearch)) {
-      showElements(card);
+      showElements(card)
     } else {
-      hideElements(card);
+      hideElements(card)
     }
   }
 }
@@ -225,7 +225,7 @@ const hideElements = (element) => {
 // Show the elements with out the filter value
 const showElements = (element) => {
   if (element && element.style) {
-    element.style.display = 'block';
+    element.style.display = 'block'
   }
 }
 
@@ -253,10 +253,7 @@ const fetchData = async () => {
 const catchUpdate = async (event, idElement) => {
   const newValue = event.target.value
   const dbArrayData = await fetchData() // Get the products from the database
-  // const maxQuantity = dbArrayData.find((product) => product.id === id).quantity
   const maxQuantity = dbArrayData.find((product) => product.id == idElement).quantity
-  console.log(`Current Value: ${newValue}`)
-  console.log(`Max Value: ${maxQuantity}`)
 
   if (newValue > maxQuantity) {
     event.target.value = maxQuantity.quantity
@@ -269,19 +266,19 @@ const catchUpdate = async (event, idElement) => {
       confirmButtonText: 'Si por favor',
       cancelButtonText: 'No, gracias'
     })
-  } else{
+  } else {
     // Update the new element in our localStorage
-  const product = shoppingCart.map((product) => {
-    if (product.id == idElement) {
-      product.quantity = newValue
-    }
-  })
-  // Update the total price in the shopping cart
-  totalAmount.textContent = shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0)
-  numberProducts.textContent = shoppingCart.length
+    const product = shoppingCart.map((product) => {
+      if (product.id == idElement) {
+        product.quantity = newValue
+      }
+    })
+    // Update the total price in the shopping cart
+    totalAmount.textContent = shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0)
+    numberProducts.textContent = shoppingCart.length
 
-  // Update the total price in the shopping cart
-  saveProducts()
+    // Update the total price in the shopping cart
+    saveProducts()
   }
 }
 
