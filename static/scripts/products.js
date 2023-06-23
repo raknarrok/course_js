@@ -1,120 +1,10 @@
 'use strict'
-// Products List & details
-const stockProducts = [
-  {
-    id: 1,
-    name: 'Collar de perlas',
-    quantity: 0,
-    desc: 'Collar de perlas de agua dulce, con cierre de plata 925',
-    price: 1200,
-    img: '../static/images/productos/collares/perlas.png',
-    category: 'collares'
-  },
-  {
-    id: 2,
-    name: 'Collar de plata',
-    quantity: 1,
-    desc: 'Collar de plata 925, con dije de perla de agua dulce',
-    price: 1500,
-    img: '../static/images/productos/collares/plata.png',
-    category: 'collares'
-  },
-  {
-    id: 3,
-    name: 'Collar de oro',
-    quantity: 1,
-    desc: 'Collar de oro 18k, con dije de perla de agua dulce',
-    price: 2000,
-    img: '../static/images/productos/collares/oro.png',
-    category: 'collares'
-  },
-  {
-    id: 4,
-    name: 'Collar de diamantes',
-    quantity: 1,
-    desc: 'Collar de oro 18k, con dije de perla de agua dulce y diamantes',
-    price: 3000,
-    img: '../static/images/productos/collares/diamantes.png',
-    category: 'collares'
-  },
-  {
-    id: 5,
-    name: 'Pulsera de perlas',
-    quantity: 1,
-    desc: 'Pulsera de perlas de agua dulce, con cierre de plata 925',
-    price: 800,
-    img: '../static/images/productos/pulseras/perlas.png',
-    category: 'pulseras'
-  },
-  {
-    id: 6,
-    name: 'Pulsera de plata',
-    quantity: 1,
-    desc: 'Pulsera de plata 925, con dije de perla de agua dulce',
-    price: 1000,
-    img: '../static/images/productos/pulseras/plata.png',
-    category: 'pulseras'
-  },
-  {
-    id: 7,
-    name: 'Pulsera de oro',
-    quantity: 1,
-    desc: 'Pulsera de oro 18k, con dije de perla de agua dulce',
-    price: 1500,
-    img: '../static/images/productos/pulseras/oro.png',
-    category: 'pulseras'
-  },
-  {
-    id: 8,
-    name: 'Pulsera de diamantes',
-    quantity: 1,
-    desc: 'Pulsera de oro 18k, con dije de perla de agua dulce y diamantes',
-    price: 2500,
-    img: '../static/images/productos/pulseras/diamantes.png',
-    category: 'pulseras'
-  },
-  {
-    id: 9,
-    name: 'Anillo de perlas',
-    quantity: 1,
-    desc: 'Anillo de perlas de agua dulce, con cierre de plata 925',
-    price: 1000,
-    img: '../static/images/productos/anillos/perlas.png',
-    category: 'anillos'
-  },
-  {
-    id: 10,
-    name: 'Anillo de plata',
-    quantity: 1,
-    desc: 'Anillo de plata 925, con dije de perla de agua dulce',
-    price: 1200,
-    img: '../static/images/productos/anillos/plata.png',
-    category: 'anillos'
-  },
-  {
-    id: 11,
-    name: 'Anillo de oro',
-    quantity: 1,
-    desc: 'Anillo de oro 18k, con dije de perla de agua dulce',
-    price: 1800,
-    img: '../static/images/productos/anillos/oro.png',
-    category: 'anillos'
-  },
-  {
-    id: 12,
-    name: 'Anillo de diamantes',
-    quantity: 1,
-    desc: 'Anillo de oro 18k, con dije de perla de agua dulce y diamantes',
-    price: 3000,
-    img: '../static/images/productos/anillos/diamantes.png',
-    category: 'anillos'
-  }]
 
 // Shopping Cart Variable
 let shoppingCart = []
 
 // Get the container
-const contaier = document.querySelector('#products_container')
+const container = document.querySelector('#products_container')
 const numberProducts = document.querySelector('#numberProducts')
 const totalAmount = document.querySelector('#totalAmount')
 const btnBuy = document.querySelector('#btnBuy')
@@ -129,45 +19,39 @@ document.addEventListener('DOMContentLoaded', () => {
   showShoppingCart()
 })
 
-// Create the HTML for each product
-stockProducts.forEach((product) => {
-  // Destructuring
-  const { id, name, quantity, desc, price, img, category } = product
-  contaier.innerHTML += `
-    <div name="${name}" class="card" style="width: 18rem;">
-    <img src="${img}" class="card-img-top mt-2" alt="${name}">
-    <div class="card-body">
-        <h5 class="card-title">${name}</h5>
-        <p class="card-text">Precio: $${price}</p>
-        <p class="card-text">Cantidad: ${quantity || '<span>Agotados</span>'}</p>
-        <p class="card-text">${desc}</p>
-        <p class="card-text">Categoria: ${category}</p>
-        <button onclick="addProduct(${id})" class="btn btn-primary ${quantity || 'disabled'}">
-            Agregar
-        </button>
-    </div>
-    </div>
-    `
-})
-
 /**
  * Adds a product to the shopping cart based on its ID.
  * If the item is already in the shopping cart, the quantity is increased.
  * @param {number} id - The ID of the product to be added to the shopping cart.
  */
-const addProduct = (id) => {
+const addProduct = async (id) => {
   // Verify if the product is already in the shopping cart
   const isOnCart = shoppingCart.some((product) => product.id === id)
 
+  // Search for Item on our stock
+  const arrayProducts = await fetchData()
+  const item = arrayProducts.find((product) => product.id === id)
+
   if (isOnCart) {
-    const product = shoppingCart.map((product) => {
+    shoppingCart = shoppingCart.map((product) => {
       if (product.id === id) {
         product.quantity++
+        if (product.quantity >= item.quantity) {
+          Swal.fire({
+            title: `Disculpa pero solo tenemos ${item.quantity} productos en stock :(`,
+            text: '¿Quieres que te notifiquemos cuando tengamos mas?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si por favor',
+            cancelButtonText: 'No, gracias'
+          })
+          product.quantity = item.quantity
+        }
       }
+      return product
     })
   } else {
-    // Search for Item on our stock
-    const item = stockProducts.find((product) => product.id === id)
+    item.quantity = 1 // Increace in 1 the quantity of the product
 
     // If item is already on the shopping cart, increase quantity
     shoppingCart.push(item)
@@ -179,12 +63,15 @@ const addProduct = (id) => {
   showShoppingCart()
 }
 
-const showShoppingCart = () => {
+const showShoppingCart = async () => {
   const modalBody = document.querySelector('#productAdded')
   modalBody.innerHTML = ''
 
+  const dbArrayData = await fetchData() // Get the products from the database
   shoppingCart.forEach((product) => {
     const { id, name, quantity, desc, price, img, category } = product
+    const maxQuantity = dbArrayData.find((product) => product.id === id).quantity
+
     modalBody.innerHTML += `
       <div class="modal-container border">
       <div>
@@ -193,10 +80,10 @@ const showShoppingCart = () => {
       <div class="mb-1">
           <p><b>Nombre:</b> ${name}</p>
           <p><b>Precio</b> $${price}</p>
-          <p><b>Cantidad:</b> ${quantity}</p>
+          <p><b>Disponible:</b> <input id="textInput${id}" onchange="catchUpdate(event, '${id}')" type="number" style="width:5em" value="${quantity}" min="1" max="${maxQuantity}"/></p>
           <p><b>Descripcion:</b> ${desc}</p>
           <p><b>Categoria:</b> ${category}</p>
-          <button class="btn btn-danger" onclick="deleteProduct(${id})">
+          <button id="btnId${id}" class="btn btn-danger" onclick="deleteProduct(${id})">
             Eliminar
           </button>
         </div>
@@ -264,7 +151,7 @@ btnBuy.onclick = () => {
       confirmButtonText: 'Aceptar'
     })
   } else {
-    location.href = '/checkout.html'
+    location.href = '../pages/checkout.html'
   }
 }
 
@@ -316,15 +203,15 @@ btnClearFilter.onclick = () => {
 const btnSearch = document.querySelector('#btnSearch')
 btnSearch.onclick = () => {
   let textSearch = document.querySelector('#searchText').value
-  const cards = document.querySelectorAll('#products_container .card')
+  const cards = Array.from(document.querySelectorAll('#products_container .card'))
   textSearch = textSearch.toLowerCase()
 
-  for (const items in cards) {
-    const currentText = cards[items].getAttribute('name')
+  for (const card of cards) { // Usar bucle for...of para iterar sobre el array
+    const currentText = card.getAttribute('name');
     if (currentText.toLowerCase().includes(textSearch)) {
-      showElements(cards[items])
+      showElements(card);
     } else {
-      hideElements(cards[items])
+      hideElements(card);
     }
   }
 }
@@ -332,9 +219,96 @@ btnSearch.onclick = () => {
 // Hide the elements with out the filter value
 const hideElements = (element) => {
   element.style.display = 'none'
+  document.querySelector('#searchText').value = ''
 }
 
 // Show the elements with out the filter value
 const showElements = (element) => {
-  element.style.display = 'block'
+  if (element && element.style) {
+    element.style.display = 'block';
+  }
 }
+
+const btnCart = document.querySelector('#btnCart')
+btnCart.onclick = () => {
+  const isOriginalValue = shoppingCart.findIndex((product) => product.quantity >= 1)
+
+  isOriginalValue !== 0 ? btnBuy.disabled = true : btnBuy.disabled = false
+  isOriginalValue !== 0 ? btnClean.disabled = true : btnClean.disabled = false
+}
+
+/**
+ * Retrieve Hardcoded data from the database.
+ */
+const fetchData = async () => {
+  const objResponse = await fetch('../static/scripts/db.js')
+  const objJson = await objResponse.json()
+
+  return objJson
+}
+
+/**
+ * Update the value in the shopping cart.
+ */
+const catchUpdate = async (event, idElement) => {
+  const newValue = event.target.value
+  const dbArrayData = await fetchData() // Get the products from the database
+  // const maxQuantity = dbArrayData.find((product) => product.id === id).quantity
+  const maxQuantity = dbArrayData.find((product) => product.id == idElement).quantity
+  console.log(`Current Value: ${newValue}`)
+  console.log(`Max Value: ${maxQuantity}`)
+
+  if (newValue > maxQuantity) {
+    event.target.value = maxQuantity.quantity
+    document.querySelector(`#textInput${idElement}`).value = maxQuantity
+    Swal.fire({
+      title: `Disculpa pero solo tenemos ${maxQuantity} productos en stock :(`,
+      text: '¿Quieres que te notifiquemos cuando tengamos mas?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si por favor',
+      cancelButtonText: 'No, gracias'
+    })
+  } else{
+    // Update the new element in our localStorage
+  const product = shoppingCart.map((product) => {
+    if (product.id == idElement) {
+      product.quantity = newValue
+    }
+  })
+  // Update the total price in the shopping cart
+  totalAmount.textContent = shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0)
+  numberProducts.textContent = shoppingCart.length
+
+  // Update the total price in the shopping cart
+  saveProducts()
+  }
+}
+
+/**
+ * print the products in the container. Version 2
+ */
+const printProducts = async () => {
+  const arrayProducts = await fetchData()
+
+  arrayProducts.forEach((product) => {
+    const { id, name, quantity, desc, price, img, category } = product
+    container.innerHTML += `
+    <div name="${name}" class="card" style="width: 18rem;">
+    <img src="${img}" class="card-img-top mt-2" alt="${name}">
+    <div class="card-body">
+        <h5 class="card-title">${name}</h5>
+        <p class="card-text">Precio: $${price}</p>
+        <p class="card-text">Disponible: ${quantity || '<span>Agotados</span>'}</p>
+        <p class="card-text">${desc}</p>
+        <p class="card-text">Categoria: ${category}</p>
+        <button id="btnId${id}" onclick="addProduct(${id})" class="btn btn-primary" ${quantity || 'disabled'}>
+            Agregar
+        </button>
+    </div>
+    </div>
+    `
+  })
+}
+
+printProducts()

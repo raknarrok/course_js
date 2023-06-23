@@ -73,6 +73,17 @@ a {
   cursor: pointer;
 }
 
+.greenButton {
+  background-color: #056d05;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.5vh;
+}
+
 /* MODAL Extra styles*/
 .modal-container {
   display: flex;
@@ -105,6 +116,11 @@ a {
 /* Menu Controller */
 .sizeController {
   width: 25px;
+}
+
+.refresh:hover {
+  color: #683e68;
+  cursor: pointer;
 }
 
 /*
