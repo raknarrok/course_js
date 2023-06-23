@@ -1,7 +1,7 @@
 'use strict'
 
 // Shopping Cart Variable
-let shoppingCart = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
+const shoppingCart = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
 
 // Get the container
 const container = document.querySelector('#products_container')
@@ -14,12 +14,11 @@ const chkBilling = document.querySelector('#chkBilling')
 const fetchStates = async () => {
   const objResponse = await fetch('../static/scripts/states.js')
   const objJson = await objResponse.json()
-  
   return objJson
 }
 
-/** 
- *  Print the states in the container
+/**
+ * Print the states in the container
 */
 const printStates = async () => {
   const arrayStates = await fetchStates()
@@ -27,7 +26,7 @@ const printStates = async () => {
   const selectStateShipping = document.querySelector('#selectStateShipping')
 
   arrayStates.forEach((state) => {
-    const {id, estado} = state
+    const { id, estado } = state
     selectStateBilling.innerHTML += `<option value="${id}">${estado}</option>`
     selectStateShipping.innerHTML += `<option value="${id}">${estado}</option>`
   })
@@ -77,14 +76,14 @@ chkBilling.onclick = () => {
 
   if (chkBilling.checked) {
     formElement.style.display = 'none'
-    noBillingMessage.innerHTML = `<b>Sin direccion de facturacion</b>`
+    noBillingMessage.innerHTML = '<b>Sin direccion de facturacion</b>'
     elementShipping.style.display = 'none'
     noBillingMessage.style.display = 'block'
   } else {
     formElement.style.display = 'block'
     elementShipping.style.display = 'block'
     noBillingMessage.style.display = 'none'
-    noBillingMessage.innerHTML = ``
+    noBillingMessage.innerHTML = ''
   }
 }
 
@@ -99,7 +98,6 @@ const infoCard = document.querySelector('#infoCard')
 const infoTransfer = document.querySelector('#infoTransfer')
 
 radioCash.onclick = () => {
-  
   infoCard.style.display = 'none'
   infoTransfer.style.display = 'none'
   $('#infoCash').css('display', 'block')
