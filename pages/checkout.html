@@ -125,32 +125,32 @@
                             </p>
                             <form class="row g-3 formConfiguration" id="formElement">
                                 <div class="col-md-6">
-                                    <label for="inputEmail4" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail4" required>
+                                    <label for="inputEmailBilling" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="inputEmailBilling" required>
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputAddress" class="form-label">Direccion</label>
-                                    <input type="text" class="form-control" id="inputAddress"
-                                        placeholder="1234 Main St">
+                                    <label for="inputAddressBilling" class="form-label">Direccion</label>
+                                    <input type="text" class="form-control" id="inputAddressBilling"
+                                        placeholder="1234 Main St" required>
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputAddress2" class="form-label">Agregar Referencias</label>
-                                    <input type="text" class="form-control" id="inputAddressReference"
-                                        placeholder="Entre Calles y referencia de la casa">
+                                    <label for="inputAddressBilling2" class="form-label">Agregar Referencias</label>
+                                    <input type="text" class="form-control" id="inputAddressBilling2"
+                                        placeholder="Entre Calles y referencia de la casa" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="inputCity" class="form-label">Ciudad</label>
-                                    <input type="text" class="form-control" id="inputCity">
+                                    <label for="inputCityBilling" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="inputCityBilling" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="inputState" class="form-label">Estado</label>
-                                    <select id="selectStateBilling" class="form-select">
+                                    <label for="selectStateBilling" class="form-label">Estado</label>
+                                    <select id="selectStateBilling" class="form-select" required>
                                         <option selected>Selecciona tu estado</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="inputZip" class="form-label">Codigo Postal</label>
-                                    <input type="text" class="form-control" id="inputZip">
+                                    <label for="inputZipBilling" class="form-label">Codigo Postal</label>
+                                    <input type="text" class="form-control" id="inputZipBilling" required>
                                 </div>
                             </form>
                         </div>
@@ -165,7 +165,6 @@
                             <h4>Direccion de Envio</h4>
                             <!-- Check box in case to be the same of Shipping Address-->
                             <!-- Address Location details -->
-
                         </button>
                     </h2>
                     <div id="flush-collapseThree" class="accordion-collapse collapse"
@@ -177,32 +176,32 @@
                             </p>
                             <form class="row g-3 formConfiguration" id="formElement">
                                 <div class="col-md-6">
-                                    <label for="inputEmail4" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail4" required>
+                                    <label for="inputEmailShipping" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="inputEmailShipping" required>
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputAddress" class="form-label">Direccion</label>
-                                    <input type="text" class="form-control" id="inputAddress"
-                                        placeholder="1234 Main St">
+                                    <label for="inputAddressShipping" class="form-label">Direccion</label>
+                                    <input type="text" class="form-control" id="inputAddressShipping"
+                                        placeholder="1234 Main St" required>
                                 </div>
                                 <div class="col-12">
-                                    <label for="inputAddress2" class="form-label">Agregar Referencias</label>
-                                    <input type="text" class="form-control" id="inputAddressReference"
-                                        placeholder="Entre Calles y referencia de la casa">
+                                    <label for="inputAddressShipping2" class="form-label">Agregar Referencias</label>
+                                    <input type="text" class="form-control" id="inputAddressShipping2"
+                                        placeholder="Entre Calles y referencia de la casa" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="inputCity" class="form-label">Ciudad</label>
-                                    <input type="text" class="form-control" id="inputCity">
+                                    <label for="inputCityShipping" class="form-label">Ciudad</label>
+                                    <input type="text" class="form-control" id="inputCityShipping" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="inputState" class="form-label">Estado</label>
-                                    <select id="selectStateShipping" class="form-select">
+                                    <label for="selectStateShipping" class="form-label">Estado</label>
+                                    <select id="selectStateShipping" class="form-select" required>
                                         <option selected>Selecciona tu estado</option>
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="inputZip" class="form-label">Codigo Postal</label>
-                                    <input type="text" class="form-control" id="inputZip">
+                                    <label for="inputZipShipping" class="form-label" >Codigo Postal</label>
+                                    <input type="text" class="form-control" id="inputZipShipping" required>
                                 </div>
                             </form>
                         </div>
@@ -221,22 +220,22 @@
                         data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <div>
-                                <input type="radio" id="radioRetireOnLocal" name="radioShipping" value="RetireOnLocal">
-                                <label for="radioRetireOnLocal">Retirar en Local</label>
+                                <input type="radio" id="radioRetireOnLocal" name="radioShipping" value="localRetire" required checked>
+                                <label for="radioRetireOnLocal">Retirar en Local - Sin costo</label>
                             </div>
                             <div>
-                                <input type="radio" id="radioFastDelivery" name="radioShipping" value="FastDelivery">
-                                <label for="radioFastDelivery">Entrega Rapida</label>
+                                <input type="radio" id="radioNormalDelivery" name="radioShipping" value="normalDelivery" required>
+                                <label for="radioNormalDelivery">Entrega Normal - Sin costo</label>
                             </div>
                             <div>
-                                <input type="radio" id="radioNormalDelivery" name="radioShipping"
-                                    value="NormalDelivery">
-                                <label for="radioNormalDelivery">Entrega Normal</label>
+                                <input type="radio" id="radioFastDelivery" name="radioShipping"
+                                    value="fastDelivery" required>
+                                <label for="radioFastDelivery">Entrega Rapida - Comision $100.00 MX</label>
                             </div>
                             <div>
-                                <input type="radio" id="radioUrgentDelivery" name="radioShipping"
-                                    value="UrgentDelivery">
-                                <label for="radioUrgentDelivery">Entrega Urgente</label>
+                                <input type="radio" id="radioPremiumDelivery" name="radioShipping"
+                                    value="premiumDelivery" required>
+                                <label for="radioPremiumDelivery">Entrega Premium - Comision $350.00 MX</label>
                             </div>
                         </div>
                     </div>
@@ -346,26 +345,21 @@
                                                 <h2>Agrega los datos de tu tarjeta</h2>
                                                 <form>
                                                     <div class="form-group">
-                                                        <label for="name">Titular:</label>
-                                                        <input type="text" id="name" name="name" required>
+                                                        <label for="inputName">Titular:</label>
+                                                        <input type="text" id="inputName" name="name" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="email">Correo electrónico:</label>
-                                                        <input type="email" id="email" name="email" required>
+                                                        <label for="inputCardNumber">Número de tarjeta:</label>
+                                                        <input type="text" id="inputCardNumber" name="card" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="card">Número de tarjeta:</label>
-                                                        <input type="text" id="card" name="card" required>
+                                                        <label for="inputExpiry">Fecha de vencimiento:</label>
+                                                        <input type="text" id="inputExpiry" name="expiry" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="expiry">Fecha de vencimiento:</label>
-                                                        <input type="text" id="expiry" name="expiry" required>
+                                                        <label for="inputCvv">CVV:</label>
+                                                        <input type="text" id="inputCvv" name="cvv" required>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="cvv">CVV:</label>
-                                                        <input type="text" id="cvv" name="cvv" required>
-                                                    </div>
-                                                    <!-- <button type="submit">Realizar pago</button> -->
                                                 </form>
                                             </div>
                                         </div>
@@ -386,7 +380,7 @@
                         <div id="flush-collapseSix" class="accordion-collapse collapse"
                             aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                This section is still under construction 
+                                <!-- This section is still under construction  -->
                             </div>
                             <div class="col-sm text-center text-dark">
                                 <div id="products_container" class="row mt-5 d-flex justify-content-center">
@@ -396,14 +390,14 @@
                                     <p><b>Detalles de Compra</b></p>
                                     <p>Total de Productos: <span id="spnTotalProducts"></span></p>
                                     <p>Subtotal: <span id="spnSubtotal"></span></p>
-                                    <p>Costo Envio: $0.00</p>
                                     <p>IVA: <span id="spnIva"></span></p>
+                                    <p>Costo Envio: <span id="spnShippingAmount"></span></p>
                                     <p>Total: <span id="spnTotal"></span></p>
                                 </div>
                             </div>
                             <!-- Continue buton to complete the delivery-->
-                            <div class="col-sm text-center">
-                                <button id="btnContinue" class="btn btn-primary btn-lg mb-3" disabled>Confirmar Compra</button>
+                            <div class="col-sm text-center" id="divContinue" style="display: block;">
+                                <button id="btnContinue" class="btn btn-primary btn-lg mb-3">Confirmar Compra</button>
                             </div>
                         </div>
                     </div>
