@@ -46,12 +46,57 @@ const addProduct = async (id) => {
             cancelButtonText: 'No, gracias'
           })
           product.quantity = item.quantity
+        } else {
+          let timerInterval
+          Swal.fire({
+            icon: 'success',
+            title: 'Producto agregado!',
+            text: 'Revisa tu carrito',
+            timer: 1500,
+            timerProgressBar: true,
+            showCloseButton: true,
+            didOpen: () => {
+              Swal.showLoading()
+              timerInterval = setInterval(() => {
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('Modal Closed')  
+            }
+          })
         }
       }
       return product
     })
   } else {
     item.quantity = 1 // Increace in 1 the quantity of the product
+
+    let timerInterval
+    Swal.fire({
+      icon: 'success',
+      title: 'Producto agregado!',
+      text: 'Revisa tu carrito',
+      timer: 1500,
+      timerProgressBar: true,
+      showCloseButton: true,
+      didOpen: () => {
+        Swal.showLoading()
+        timerInterval = setInterval(() => {
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('Modal Closed')
+      }
+    })
 
     // If item is already on the shopping cart, increase quantity
     shoppingCart.push(item)

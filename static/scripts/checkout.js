@@ -2,10 +2,33 @@
 
 // Shopping Cart Variable
 const shoppingCart = localStorage.getItem('shoppingCart') ? JSON.parse(localStorage.getItem('shoppingCart')) : []
+const checkOut = sessionStorage.getItem('checkOut') ? JSON.parse(sessionStorage.getItem('checkOut')) : []
 
 // Get the container
 const container = document.querySelector('#products_container')
 const chkBilling = document.querySelector('#chkBilling')
+const chkShipping = document.querySelector('#chkShipping')
+const divContinue = document.querySelector('#divContinue')
+const btnContinue = document.querySelector('#btnContinue')
+const inputEmailBilling = document.querySelector('#inputEmailBilling')
+const inputEmailShipping = document.querySelector('#inputEmailShipping')
+const inputAddressBilling = document.querySelector('#inputAddressBilling')
+const inputAddressShipping = document.querySelector('#inputAddressShipping')
+const inputAddressBilling2 = document.querySelector('#inputAddressBilling2')
+const inputAddressShipping2 = document.querySelector('#inputAddressShipping2')
+const inputCityBilling = document.querySelector('#inputCityBilling')
+const inputCityShipping = document.querySelector('#inputCityShipping')
+const selectStateBilling = document.querySelector('#selectStateBilling')
+const selectStateShipping = document.querySelector('#selectStateShipping')
+const inputZipBilling = document.querySelector('#inputZipBilling')
+const inputZipShipping = document.querySelector('#inputZipShipping')
+const radioShipping = document.querySelector('input[name="radioShipping"]:checked')
+const radioPayment = document.querySelector('input[name="radioPayment"]:checked')
+const inputName = document.querySelector('#inputName')
+const inputCardNumber = document.querySelector('#inputCardNumber')
+const inputExpiry = document.querySelector('#inputExpiry')
+const inputCvv = document.querySelector('#inputCvv')
+const spnShippingAmount = document.querySelector('#spnShippingAmount')
 
 // Main Methods
 /**
@@ -60,9 +83,11 @@ window.addEventListener('beforeunload', (event) => {
   event.returnValue = ''
   const chkBilling = document.querySelector('#chkBilling')
   const radioCash = document.querySelector('#radioCash')
+  const radioDelivery = document.querySelector('#radioRetireOnLocal')
   if (chkBilling.checked) {
     chkBilling.checked = false
   }
+  radioDelivery.checked = true
   radioCash.checked = true
 })
 
@@ -84,6 +109,20 @@ chkBilling.onclick = () => {
     elementShipping.style.display = 'block'
     noBillingMessage.style.display = 'none'
     noBillingMessage.innerHTML = ''
+  }
+}
+
+/**
+ * Use Billing address to Shipping address with checkbox
+ */
+chkShipping.onclick = () => {
+  if (chkShipping.checked) {
+    inputEmailShipping.value = inputEmailBilling.value
+    inputAddressShipping.value = inputAddressBilling.value
+    inputAddressShipping2.value = inputAddressBilling2.value
+    inputCityShipping.value = inputCityBilling.value
+    selectStateShipping.value = selectStateBilling.value
+    inputZipShipping.value = inputZipBilling.value
   }
 }
 
@@ -116,6 +155,38 @@ radioTransfer.onclick = () => {
 }
 
 /**
+ * Save & Update Payment Method & Amount
+ */
+const radioRetireOnLocal = document.querySelector('#radioRetireOnLocal')
+const radioNormalDelivery = document.querySelector('#radioNormalDelivery')
+const radioFastDelivery = document.querySelector('#radioFastDelivery')
+const radioPremiumDelivery = document.querySelector('#radioPremiumDelivery')
+
+radioRetireOnLocal.onclick = () => {
+  checkFields.deliveryMethod.method = radioShipping.value
+  spnShippingAmount.textContent = shippingAmount()
+  calculateTotal()
+}
+
+radioNormalDelivery.onclick = () => {
+  checkFields.deliveryMethod.method = radioShipping.value
+  spnShippingAmount.textContent = shippingAmount()
+  calculateTotal()
+}
+
+radioFastDelivery.onclick = () => {
+  checkFields.deliveryMethod.method = radioShipping.value
+  spnShippingAmount.textContent = shippingAmount()
+  calculateTotal()
+}
+
+radioPremiumDelivery.onclick = () => {
+  checkFields.deliveryMethod.method = radioShipping.value
+  spnShippingAmount.textContent = shippingAmount()
+  calculateTotal()
+}
+
+/**
  * Calculate Subtotal, IVA and Total
  */
 const calculateTotal = () => {
@@ -124,12 +195,177 @@ const calculateTotal = () => {
   const spnIva = document.querySelector('#spnIva')
   const spnTotal = document.querySelector('#spnTotal')
 
-  spnTotalProducts.textContent = `${shoppingCart.reduce((acc, product) => acc + product.quantity, 0)}`
+  spnTotalProducts.textContent = `${shoppingCart.reduce((acc, product) => acc + parseInt(product.quantity), 0)}`
   spnSubtotal.textContent = `$${shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0)}`
   spnIva.textContent = `$${shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0) * 0.16}`
-  const totalAmount = shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0) * 1.16
+  spnShippingAmount.textContent = `$${shippingAmount()}`
+  let totalAmount = shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0) * 1.16
+  totalAmount += shippingAmount()
   spnTotal.textContent = `$${totalAmount.toFixed(2)}`
+
+  if (shoppingCart == 0 || shoppingCart === null || shoppingCart == undefined || shoppingCart == '' || totalAmount == 0) {
+    btnContinue.disabled = true
+    divContinue.style.display = 'none'
+
+    Swal.fire({
+      title: 'Oops!!',
+      text: 'No tienens ningun producto en tu carrito, por favor agrega al menos un producto para continuar con tu compra',
+      icon: 'warning',
+      confirmButtonText: 'Cerrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = '../pages/aplicado.html'
+      }
+    })
+  }
 }
+
+/**
+ * Shipping Method - Calculate Shipping Amount
+ */
+const shippingAmount = () => {
+  const radioShipping = document.querySelector('input[name="radioShipping"]:checked')
+
+  if (radioShipping.value === 'localRetire' || radioShipping.value === 'normalDelivery') {
+    return 0
+  } else if (radioShipping.value === 'fastDelivery') {
+    return 100
+  } else if (radioShipping.value === 'premiumDelivery') {
+    return 350
+  } else {
+    return 0
+  }
+}
+
+/**
+ * Confirm CheckOut
+*/
+btnContinue.onclick = () => {
+  const emptyFieldsTracker = new Map()
+  let isMissingFields = false
+
+  updateSessionStorage()
+  const checkOutTracker = JSON.parse(sessionStorage.getItem('checkOut'))
+
+  for (const key in checkOutTracker) {
+    for (const subKey in checkOutTracker[key]) {
+      if (checkOutTracker[key][subKey] === '') {
+        if (chkBilling.checked && key === 'billingAddress') continue
+        if (!radioCard.checked && key === 'paymentMethod') continue
+        emptyFieldsTracker.set(key, false)
+        isMissingFields = true // Missing Data
+        break
+      }
+    }
+    if (isMissingFields) break
+  }
+
+  buyProducts(isMissingFields, emptyFieldsTracker)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+
+/**
+ * @param {*} isMissingFields
+ * @returns
+ */
+const buyProducts = (isMissingFields, emptyFieldsTracker) => {
+  return new Promise((resolve, reject) => {
+    if (!isMissingFields) {
+      Swal.fire({
+        title: 'Tu Compra ha sido exitosa',
+        text: `Gracias por tu compra, te enviaremos un correo con los detalles de tu orden #${orderNumber}`,
+        icon: 'success',
+        confirmButtonText: 'Cerrar'
+      })
+
+      // Delete localStorage & sessionStorage
+      localStorage.removeItem('shoppingCart')
+      sessionStorage.removeItem('checkOut')
+      resolve('OK - Compra completada')
+    } else {
+      let message = ''
+      for (const [key, value] of emptyFieldsTracker) {
+        let currentString = key
+        if (key === 'billingAddress') currentString = 'Direccion de Facturacion'
+        if (key === 'paymentMethod') currentString = 'Informacion de Pago'
+        if (!value) {
+          message += ` ${currentString} `
+        }
+      }
+
+      Swal.fire({
+        title: 'Disculpa pero no llenaste todos los campos, revisa tus datos para continuar con tu compra',
+        text: `Agrega todos los datos requeridos para continuar con tu compra (Revisa la seccion de ${message})`,
+        icon: 'warning',
+        confirmButtonText: 'Cerrar'
+      })
+      reject(new Error('ERROR Missing Elements' + message))
+    }
+  })
+}
+
+const updateSessionStorage = () => {
+  checkFields.billingAddress.email = inputEmailBilling.value
+  checkFields.billingAddress.address = inputAddressBilling.value
+  checkFields.billingAddress.referencias = inputAddressBilling2.value
+  checkFields.billingAddress.city = inputCityBilling.value
+  checkFields.billingAddress.state = selectStateBilling.value
+  checkFields.billingAddress.zip = inputZipBilling.value
+  checkFields.shippingAddress.email = inputAddressShipping.value
+  checkFields.shippingAddress.address = inputAddressShipping.value
+  checkFields.shippingAddress.referencias = inputAddressShipping2.value
+  checkFields.shippingAddress.city = inputCityShipping.value
+  checkFields.shippingAddress.state = selectStateShipping.value
+  checkFields.shippingAddress.zip = inputZipShipping.value
+  checkFields.deliveryMethod.method = radioShipping.value
+  checkFields.deliveryMethod.shippingAmount = shippingAmount()
+  checkFields.paymentMethod.method = radioPayment.value
+  checkFields.paymentMethod.cardName = inputName.value
+  checkFields.paymentMethod.cardNumber = inputCardNumber.value
+  checkFields.paymentMethod.cardExpiration = inputExpiry.value
+  checkFields.paymentMethod.cardCvv = inputCvv.value
+  sessionStorage.setItem('checkOut', JSON.stringify(checkFields))
+}
+
+const checkFields = {
+  billingAddress: {
+    email: '',
+    address: '',
+    referencias: '',
+    city: '',
+    state: '',
+    zip: ''
+  },
+  shippingAddress: {
+    email: '',
+    address: '',
+    referencias: '',
+    city: '',
+    state: '',
+    zip: ''
+  },
+  deliveryMethod: {
+    method: '',
+    shippingAmount: ''
+  },
+  paymentMethod: {
+    method: '',
+    cardName: '',
+    cardNumber: '',
+    cardExpiration: '',
+    cardCvv: ''
+  }
+}
+
+const orderNumber = ` MX${Math.floor(Math.random() * 1000000000)}`
+
+// sessionStorage Implementation
+sessionStorage.setItem('checkOut', JSON.stringify(checkFields))
 
 // Call Methods
 printProducts()
