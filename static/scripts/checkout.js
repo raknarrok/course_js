@@ -10,6 +10,8 @@ const chkBilling = document.querySelector('#chkBilling')
 const chkShipping = document.querySelector('#chkShipping')
 const divContinue = document.querySelector('#divContinue')
 const btnContinue = document.querySelector('#btnContinue')
+const btnBack = document.querySelector('#btnBack')
+const divVerify = document.querySelector('#divVerify')
 const inputEmailBilling = document.querySelector('#inputEmailBilling')
 const inputEmailShipping = document.querySelector('#inputEmailShipping')
 const inputAddressBilling = document.querySelector('#inputAddressBilling')
@@ -238,9 +240,38 @@ const shippingAmount = () => {
 }
 
 /**
+ * Verify Data
+ */
+const btnVerify = document.querySelector('#btnVerify')
+btnVerify.onclick = () => {
+  updateSessionStorage()
+  const inputName = document.querySelector('#name')
+  const inputEmail = document.querySelector('#email')
+  const inputOrderDetails = document.querySelector('#comment')
+  inputName.value = checkFields.paymentMethod.cardName
+  inputEmail.value = checkFields.shippingAddress.email
+  inputOrderDetails.value = `Metodo de Pago: ${checkFields.paymentMethod.method} \n
+  Metodo de Envio: ${checkFields.deliveryMethod.method} \n
+  Direccion de Envio: ${checkFields.shippingAddress.address} \n
+  Referencias: ${checkFields.shippingAddress.referencias} \n
+  Ciudad: ${checkFields.shippingAddress.city} \n
+  Estado: ${checkFields.shippingAddress.state} \n
+  Codigo Postal: ${checkFields.shippingAddress.zip} \n
+  Cantidad de Productos: ${shoppingCart.reduce((acc, product) => acc + parseInt(product.quantity), 0)} \n
+  Subtotal: ${shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0)} \n
+  IVA: ${shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0) * 0.16} \n
+  Costo de Envio: ${shippingAmount()} \n
+  Total: ${shoppingCart.reduce((acc, product) => acc + product.price * product.quantity, 0) * 1.16 + shippingAmount()} \n
+  Numero de Orden: ${orderNumber}`
+
+  divContinue.style.display = 'block'
+  divVerify.style.display = 'none'
+}
+/**
  * Confirm CheckOut
 */
 btnContinue.onclick = () => {
+  event.preventDefault()
   const emptyFieldsTracker = new Map()
   let isMissingFields = false
 
@@ -270,6 +301,13 @@ btnContinue.onclick = () => {
 }
 
 /**
+ * Back to Shopping Cart
+ */
+btnBack.onclick = () => {
+  window.location.href = '../pages/aplicado.html'
+}
+
+/**
  * @param {*} isMissingFields
  * @returns
  */
@@ -278,10 +316,14 @@ const buyProducts = (isMissingFields, emptyFieldsTracker) => {
     if (!isMissingFields) {
       Swal.fire({
         title: 'Tu Compra ha sido exitosa',
-        text: `Gracias por tu compra, te enviaremos un correo con los detalles de tu orden #${orderNumber}`,
+        text: `Gracias por tu compra, se registro en el sistema, un acesor te contactara para confirmar tu orden es #${orderNumber}`,
         icon: 'success',
         confirmButtonText: 'Cerrar'
       })
+
+      const divBack = document.querySelector('#divBack')
+      btnContinue.disabled = true
+      divBack.style.display = 'block'
 
       // Delete localStorage & sessionStorage
       localStorage.removeItem('shoppingCart')
@@ -316,7 +358,7 @@ const updateSessionStorage = () => {
   checkFields.billingAddress.city = inputCityBilling.value
   checkFields.billingAddress.state = selectStateBilling.value
   checkFields.billingAddress.zip = inputZipBilling.value
-  checkFields.shippingAddress.email = inputAddressShipping.value
+  checkFields.shippingAddress.email = inputEmailShipping.value
   checkFields.shippingAddress.address = inputAddressShipping.value
   checkFields.shippingAddress.referencias = inputAddressShipping2.value
   checkFields.shippingAddress.city = inputCityShipping.value

@@ -123,7 +123,7 @@
                                 <input type="checkbox" id="chkBilling" name="billingCheck">
                             <p id="noBillingMessage"></p>
                             </p>
-                            <form class="row g-3 formConfiguration" id="formElement">
+                            <div class="row g-3 formConfiguration" id="formElement">
                                 <div class="col-md-6">
                                     <label for="inputEmailBilling" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="inputEmailBilling" required>
@@ -152,7 +152,7 @@
                                     <label for="inputZipBilling" class="form-label">Codigo Postal</label>
                                     <input type="text" class="form-control" id="inputZipBilling" required>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                                 <input type="checkbox" id="chkShipping" name="shippingCheck">
                             <p id="chkShipping"></p>
                             </p>
-                            <form class="row g-3 formConfiguration" id="formElement">
+                            <div class="row g-3 formConfiguration" id="formElement">
                                 <div class="col-md-6">
                                     <label for="inputEmailShipping" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="inputEmailShipping" required>
@@ -200,10 +200,10 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="inputZipShipping" class="form-label" >Codigo Postal</label>
+                                    <label for="inputZipShipping" class="form-label">Codigo Postal</label>
                                     <input type="text" class="form-control" id="inputZipShipping" required>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -220,16 +220,18 @@
                         data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                             <div>
-                                <input type="radio" id="radioRetireOnLocal" name="radioShipping" value="localRetire" required checked>
+                                <input type="radio" id="radioRetireOnLocal" name="radioShipping" value="localRetire"
+                                    required checked>
                                 <label for="radioRetireOnLocal">Retirar en Local - Sin costo</label>
                             </div>
                             <div>
-                                <input type="radio" id="radioNormalDelivery" name="radioShipping" value="normalDelivery" required>
+                                <input type="radio" id="radioNormalDelivery" name="radioShipping" value="normalDelivery"
+                                    required>
                                 <label for="radioNormalDelivery">Entrega Normal - Sin costo</label>
                             </div>
                             <div>
-                                <input type="radio" id="radioFastDelivery" name="radioShipping"
-                                    value="fastDelivery" required>
+                                <input type="radio" id="radioFastDelivery" name="radioShipping" value="fastDelivery"
+                                    required>
                                 <label for="radioFastDelivery">Entrega Rapida - Comision $100.00 MX</label>
                             </div>
                             <div>
@@ -343,7 +345,7 @@
                                         <div class="card-body">
                                             <div class="cart-text container">
                                                 <h2>Agrega los datos de tu tarjeta</h2>
-                                                <form>
+                                                <div>
                                                     <div class="form-group">
                                                         <label for="inputName">Titular:</label>
                                                         <input type="text" id="inputName" name="name" required>
@@ -360,7 +362,7 @@
                                                         <label for="inputCvv">CVV:</label>
                                                         <input type="text" id="inputCvv" name="cvv" required>
                                                     </div>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -385,7 +387,7 @@
                             <div class="col-sm text-center text-dark">
                                 <div id="products_container" class="row mt-5 d-flex justify-content-center">
                                 </div>
-                            <!-- As well we will also have button to remove the entery product -->
+                                <!-- As well we will also have button to remove the entery product -->
                                 <div class="card-footer mb-2 border">
                                     <p><b>Detalles de Compra</b></p>
                                     <p>Total de Productos: <span id="spnTotalProducts"></span></p>
@@ -396,8 +398,26 @@
                                 </div>
                             </div>
                             <!-- Continue buton to complete the delivery-->
-                            <div class="col-sm text-center" id="divContinue" style="display: block;">
-                                <button id="btnContinue" class="btn btn-primary btn-lg mb-3">Confirmar Compra</button>
+                            <div class="col-sm text-center" id="divVerify" style="display: block;">
+                                Al dar click aceptas que los datos que agregaste son correctos y que estas de acuerdo
+                                <button id="btnVerify" class="btn btn-secondary btn-lg mb-3">Confirmar Datos</button>
+                            </div>
+                            <form id="contactform"
+                                action="https://formsubmit.io/send/31909461-65bc-45b4-8a32-b49f206bc643" method="POST">
+                                <input name="_formsubmit_id" type="text" style="display:none">
+                                <div hidden>
+                                    <input name="name" type="text" id="name" placeholder="tu nombre">
+                                    <input name="email" type="email" id="email" placeholder="tu correo">
+                                    <textarea name="comment" id="comment" rows="1"></textarea>
+                                </div>
+                                <div class="col-sm text-center" id="divContinue" style="display: none;">
+                                    <button id="btnContinue" type="submit" class="btn btn-primary btn-lg mb-3">
+                                        Confirmar Compra
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="col-sm text-center" id="divBack" style="display: none;">
+                                <button id="btnBack" class="btn btn-dark btn-lg mb-3">Regresar</button>
                             </div>
                         </div>
                     </div>
@@ -450,6 +470,7 @@
     <script>
         AOS.init();
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="../static/scripts/checkout.js"></script>
